@@ -1,0 +1,23 @@
+doctype 5
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no')
+    meta(name='author', content='#{appName}')
+    meta(name='description', content='A raffle for the #{appName} #{appSubName} Facebook page!')
+    meta(name='keywords', content='#{keywords}')
+    meta(name='', content='')
+    title!= title
+    block css
+      if env === 'development'
+        //-<!-- build:css dist/css/app.css -->
+        link(rel='stylesheet', href='/css/app.css')
+        //-<!-- endbuild -->
+      else
+        link(rel='stylesheet', href='/css/app.css')
+    block js
+      if env === 'development'
+        script(src='http://localhost:35729/livereload.js')
+  body
+    block content

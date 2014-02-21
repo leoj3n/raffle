@@ -1,0 +1,129 @@
+extends ../layout
+
+block content
+  div#load.wrapper.load
+    div.spinner
+      div.cube1
+      div.cube2
+    div.progress
+      span#percent 0
+      | %
+    div #{appName} #{appSubName}
+    div= loadingText
+  div#container.wrapper
+    ul#scene.scene.unselectable(data-friction-x='0.1'
+                                data-friction-y='0.1'
+                                data-scalar-x='35'
+                                data-scalar-y='10')
+      li.layer(data-depth='0.04')
+        div.mountain
+      li.layer(data-depth='0.05')
+        div.clouds
+      li.layer(data-depth='0.15')
+        div.trees-far
+      li.layer(data-depth='0.22')
+        div.trees-near
+  section#about.wrapper.about.hide.accelerate
+    div.cell.accelerate
+      div.cables.center.accelerate
+        div.panel.accelerate
+          header
+            div#vid
+              h1= appName
+              h2= appSubName
+            p#status-message Enter your email below
+          form#mail
+            ul.inputs
+              li
+                input.email-input(type='email'
+                                  tabindex='1'
+                                  placeholder='your@email.com')
+              li
+                input.submit-input(tabindex='2'
+                                   type='submit'
+                                   value='Enter raffle!')
+  div#prompt.wrapper.prompt.hide.accelerate
+    div.cell.accelerate
+      div.panel.center.unselectable.accelerate
+        button#dismiss.dismiss
+          div.cross
+            div.x
+            div.y
+        h2 Thank you!
+        p You will recieve a confirmation email from <em>#{emailUser}</em> shortly.
+
+
+  if env === 'development'
+    //-<!-- build:js dist/js/index.js -->
+    script(src='/js/index.js')
+    script(src='/components/hammerjs/hammer.js')
+    script(src='/components/jquery/dist/jquery.js')
+    script(src='/components/underscore/underscore.js')
+    script(src='/js/underscore.tap.js')
+    script(src='/components/threejs/build/three.js')
+    script(src='/components/fitvids/jquery.fitvids.js')
+    script(src='/components/fastclick/lib/fastclick.js')
+    script(src='/components/jquery-hammerjs/jquery.hammer.js')
+    script(src='/components/parallax/deploy/jquery.parallax.js')
+    script(src='/components/Verimail.js/src/verimail.jquery.js')
+    script(src='/components/visibilityjs/lib/visibility.core.js')
+    script(src='/components/visibilityjs/lib/visibility.fallback.js')
+    script(src='/components/createjs-preloadjs/lib/preloadjs-0.4.1.min.js')
+    //-<!-- endbuild -->
+  else
+    script(src='/js/index.js')
+
+  script#vs(type='x-shader/x-vertex').
+    varying vec2 vUv;
+
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+    }
+
+  script#fs(type='x-shader/x-fragment').
+    uniform sampler2D map;
+
+    uniform vec3 fogColor;
+    uniform float fogNear;
+    uniform float fogFar;
+
+    varying vec2 vUv;
+
+    void main() {
+      float depth = ( gl_FragCoord.z / gl_FragCoord.w );
+      float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+      gl_FragColor = texture2D( map, vUv );
+      gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+      gl_FragColor = mix(
+          gl_FragColor,
+          vec4( fogColor, gl_FragColor.w ),
+          fogFactor
+        );
+    }
+
+  script.
+    $(function() {
+      var queue = new createjs.LoadQueue(),
+        $queue = $(queue),
+        $percent = $('#percent');
+
+      queue.loadManifest([
+        '/img/map.png',
+        '/img/panel.jpg',
+        '/img/cable.png',
+        '/img/compass.png',
+        '/img/TreesFar.png',
+        '/img/TreesNear.png',
+        '/img/Mountains.png'
+      ]);
+
+      $queue.on( 'progress', function( e ) {
+        $percent.text( ~~(e.originalEvent.progress * 100) );
+      });
+
+      $queue.on( 'complete', function() {
+        app('#{vimeoId}');
+      });
+    });

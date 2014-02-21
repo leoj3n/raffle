@@ -1,0 +1,48 @@
+@media #{$DESKTOP_QUERY}
+
+  $MAX_WIDTH: 560px
+
+  //----------------------------------------
+  // Elements
+  //----------------------------------------
+
+  html
+    font-size: $DESKTOP_FONT_SIZE
+
+
+
+  //----------------------------------------
+  // Center
+  //----------------------------------------
+
+  .center
+    max-width: $MAX_WIDTH
+
+
+
+  //----------------------------------------
+  // About
+  //----------------------------------------
+
+  .about
+    .panel
+      &:after
+        background-size: background-size(280px, 280px, 1.0)
+        height: 200px
+        width: 160px
+      header
+        &:before
+          background-size: background-size(110px, 150px, 0.75)
+      .inputs
+        input
+          padding: 1.2em 0 1.3em
+
+
+  //----------------------------------------
+  // Scene
+  //----------------------------------------
+
+  .title
+    font-size: font-size($DESKTOP_FONT_SIZE, 52px)
+
+

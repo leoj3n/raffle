@@ -1,0 +1,47 @@
+@media #{$CINEMA_QUERY}
+
+  $MAX_WIDTH: 620px
+
+  //----------------------------------------
+  // Elements
+  //----------------------------------------
+
+  html
+    font-size: $CINEMA_FONT_SIZE
+
+
+
+  //----------------------------------------
+  // Center
+  //----------------------------------------
+
+  .center
+    max-width: $MAX_WIDTH
+
+
+
+  //----------------------------------------
+  // About
+  //----------------------------------------
+
+  .about
+    .panel
+      &:after
+        background-size: background-size(280px, 280px, 1.0)
+        height: 200px
+        width: 170px
+      header
+        &:before
+          background-size: background-size(110px, 150px, 0.85)
+
+
+
+  //----------------------------------------
+  // Prompt
+  //----------------------------------------
+
+  .prompt
+    .panel
+      width: 240px
+
+

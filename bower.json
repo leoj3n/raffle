@@ -1,0 +1,15 @@
+{
+  "name": "raffle",
+  "dependencies": {
+    "threejs": "*",
+    "jquery": "~2.1.0",
+    "fitvids": "~1.0.3",
+    "parallax": "~1.0.0",
+    "fastclick": "~0.6.11",
+    "underscore": "~1.6.0",
+    "visibilityjs": "~1.1.0",
+    "createjs-preloadjs": "*",
+    "jquery-hammerjs": "~1.0.1",
+    "Verimail.js": "git@github.com:amail/Verimail.js.git"
+  }
+}

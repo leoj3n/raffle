@@ -1,0 +1,78 @@
+a,button
+  +transition("color #{$BUTTON_STATIC}, background-color #{$BUTTON_STATIC}, opacity #{$BUTTON_STATIC}")
+
+.cross,.x,.y
+  +transition("all 0.3s #{$easeOutQuart}")
+
+.about
+  .panel,
+  .cables
+    +transition("all 0.8s #{$easeInOutQuart}")
+
+
+
+//----------------------------------------
+// Keyframes
+//----------------------------------------
+
++keyframes("cubemove")
+  25%
+    +transform("translateX(42px) rotate(-90deg) scale(0.5)")
+  50%
+    +transform("translateX(42px) translateY(42px) rotate(-179deg)")
+  50.1%
+    +transform("translateX(42px) translateY(42px) rotate(-180deg)")
+  75%
+    +transform("translateX(0px) translateY(42px) rotate(-270deg) scale(0.5)")
+  100%
+    +transform("rotate(-360deg)")
+
+
+
+//============================================================
+//
+// Mouse
+//
+//============================================================
+
+html.mouse
+
+  a:hover,button:hover
+    +transition("color #{$BUTTON_HOVER}, background-color #{$BUTTON_HOVER}, opacity #{$BUTTON_HOVER}")
+
+  a:hover
+    color: lighten($EMBER,25%)
+
+  button:hover
+    background-color: $EMBER
+    color: $WHITE
+
+  .links a:hover
+    background-color: $EMBER
+    color: $WHITE
+
+
+
+//============================================================
+//
+// Touch
+//
+//============================================================
+
+html.touch
+
+  a.tap,button.tap
+    +transition("color #{$BUTTON_TAP}, background-color #{$BUTTON_TAP}, opacity #{$BUTTON_TAP}")
+
+  a.tap
+    color: lighten($EMBER,25%)
+
+  button.tap
+    background-color: $EMBER
+    color: $WHITE
+
+  .links a.tap
+    background-color: $EMBER
+    color: $WHITE
+
+
